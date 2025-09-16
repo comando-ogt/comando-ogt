@@ -12,18 +12,19 @@ export function MainSection({ children, className }: Props) {
       className={clsx(
         "relative",
         "h-full",
-        "bg-gradient-to-br",
+        /* "bg-gradient-to-br",
         "from-black",
         "via-gray-900",
-        "to-gray-800",
+        "to-gray-800", */
         className
       )}
     >
       <video
-        className="absolute opacity-20 w-full h-full object-cover"
+        className="absolute opacity-20 w-full h-full object-cover pointer-events-none"
         autoPlay
         loop
         muted
+        playsInline
         crossOrigin="anonymous"
       >
         <source src="hll.mp4" />

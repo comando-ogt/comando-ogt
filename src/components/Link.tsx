@@ -28,7 +28,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ) {
     const baseClassName = [
       "text-gray-300",
-      "hover:text-green-400",
+      "hover:text-white",
       "transform",
       "hover:scale-110",
       "transition",

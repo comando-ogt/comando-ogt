@@ -10,14 +10,11 @@ export function Nav() {
         "sticky",
         "bg-black/90",
         "shadow-lg",
-        "backdrop-blur-sm",
-        "border-green-400",
-        "border-b",
-        "w-full"
+        "backdrop-blur-sm"
       )}
     >
       <div className="flex justify-between items-center mx-auto px-6 py-4 max-w-7xl">
-        <h1 className="drop-shadow-lg font-bold text-green-400 text-2xl">
+        <h1 className="drop-shadow-lg font-bold text-white text-2xl">
           Comando OGT
         </h1>
         <nav className="flex space-x-6 font-semibold text-lg">

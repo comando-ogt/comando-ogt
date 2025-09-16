@@ -1,12 +1,12 @@
 import clsx from "clsx";
 
 const colorClasses = {
-  green: "bg-green-500 hover:bg-green-600",
-  red: "bg-red-500 hover:bg-red-600",
-  yellow: "bg-yellow-400 hover:bg-yellow-500",
-  outlineGreen: "border border-green-500 text-green-400",
-  outlineRed: "border border-red-500 text-red-400",
-  outlineYellow: "border border-yellow-400 text-yellow-400",
+  green: "bg-ogt-green text-white",
+  red: "bg-ogt-red text-white",
+  yellow: "bg-yellow-500 text-black",
+  outlineGreen: "border border-ogt-green text-ogt-green",
+  outlineRed: "border border-ogt-red text-red-red",
+  outlineYellow: "border border-yellow-500 text-yellow-500",
 } as const;
 
 export type ButtonVariant = keyof typeof colorClasses;
@@ -14,7 +14,8 @@ export type ButtonVariant = keyof typeof colorClasses;
 export function getButtonStyles(variant: ButtonVariant, className: string) {
   return clsx(
     colorClasses[variant] || colorClasses["green"],
-    "text-black",
+    "btn",
+    "hover:bg-opacity-90",
     "font-bold",
     "px-6",
     "py-3",
@@ -25,6 +26,7 @@ export function getButtonStyles(variant: ButtonVariant, className: string) {
     "transition-transform",
     "duration-300",
     "cursor-pointer",
+    "uppercase",
     className
   );
 }

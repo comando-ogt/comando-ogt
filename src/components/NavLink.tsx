@@ -14,7 +14,7 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         ref={ref}
         {...rest}
         className={({ isActive }) =>
-          isActive ? "text-green-400" : "hover:text-green-400 transition"
+          isActive ? "text-white" : "text-gray-300 hover:text-white transition"
         }
       >
         {children}
