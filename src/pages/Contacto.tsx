@@ -10,7 +10,7 @@ export function Contacto() {
 
         <div className="mx-auto max-w-2xl">
           <form
-            action="https://formspree.io/f/mzzpevzn"
+            action="https://formspree.io/f/mzzalkja"
             method="POST"
             className="space-y-6 bg-gray-800 shadow-2xl p-8 border border-green-400 rounded-3xl"
           >

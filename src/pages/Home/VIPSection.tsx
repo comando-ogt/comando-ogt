@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Button } from "../../components/Button";
+import VipModal from "../../components/VipModal";
 
 export function VIPSection() {
+  const [openVIP, setOpenVIP] = useState(false);
+
   return (
     <section id="vip" className="bg-neutral-900 py-20">
       <div className="mx-auto px-6 text-center container">
@@ -19,11 +23,14 @@ export function VIPSection() {
             Accede a beneficios exclusivos como slots reservados, insignias en
             Discord y acceso a eventos privados.
           </p>
-          <Button className="mt-8" variant="yellow">
+          <Button className="mt-8" variant="yellow" onClick={() => setOpenVIP(true)}>
             Conviértete en VIP
           </Button>
         </div>
       </div>
+
+      {/* Modal */}
+      <VipModal isOpen={openVIP} onClose={() => setOpenVIP(false)} />
     </section>
   );
 }

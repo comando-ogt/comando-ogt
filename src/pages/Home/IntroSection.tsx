@@ -21,6 +21,7 @@ export function IntroSection() {
           Hell Let Loose LATAM | Equipo Competitivo & Comunidad
         </p>
         <div className="flex gap-4">
+          {/* Botón de Discord */}
           <Link
             href="https://discord.com/invite/WmB3kPB35j"
             target="_blank"
@@ -28,33 +29,50 @@ export function IntroSection() {
           >
             Únete a nuestro Discord
           </Link>
+
+          {/* Botón Inscribirme con modal */}
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="red">Inscribirme</Button>
             </DialogTrigger>
+
             <DialogContent
               title="Formulario de Inscripción"
               description="Agrega tu información aquí para unirse a nuestro equipo"
             >
-              <form className="flex flex-col gap-4">
+              <form
+                className="flex flex-col gap-4"
+                action="https://formspree.io/f/mzzalkja" // <- reemplaza con tu endpoint
+                method="POST"
+              >
                 <input
                   type="text"
-                  placeholder="Nombre de Jugador"
+                  name="playerName"
+                  placeholder="Nick de Discord"
                   className="bg-black p-2 border border-green-400 rounded text-white"
+                  required
                 />
-                <select className="bg-black p-2 border border-green-400 rounded text-white">
-                  <option>Infantería</option>
-                  <option>Competitivo</option>
-                  <option>VIP</option>
+                <select
+                  name="role"
+                  className="bg-black p-2 border border-green-400 rounded text-white"
+                  required
+                >
+                  <option value="Infantería">Infantería</option>
+                  <option value="Competitivo">Competitivo</option>
+                  <option value="VIP">VIP</option>
                 </select>
                 <input
                   type="email"
+                  name="email"
                   placeholder="Correo"
                   className="bg-black p-2 border border-green-400 rounded text-white"
+                  required
                 />
+
                 <Button type="submit" className="rounded-lg">
                   Enviar
                 </Button>
+
                 <DialogClose asChild>
                   <Button className="rounded-lg" variant="outlineRed">
                     Cancelar
@@ -68,3 +86,4 @@ export function IntroSection() {
     </MainSection>
   );
 }
+
