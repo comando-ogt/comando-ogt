@@ -1,15 +1,28 @@
-import { useState } from "react";
 import { Button } from "../../components/Button";
-import VipModal from "../../components/VipModal";
+import { FlagBar } from "../../components/FlagBar";
+import { VipModal } from "../../modals/VipModal";
+import { motion } from "motion/react";
 
 export function VIPSection() {
-  const [openVIP, setOpenVIP] = useState(false);
-
   return (
     <section id="vip" className="bg-neutral-900 py-20">
-      <div className="mx-auto px-6 text-center container">
+      <motion.div
+        className="mx-auto px-6 text-center container"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.6 }}
+        variants={{
+          hidden: { scale: 0 },
+          visible: {
+            scale: [0, 1.4, 1],
+            transition: { delay: 0.2, duration: 0.5 },
+          },
+          complete: { scale: 1 },
+        }}
+        exit={{ scale: 1 }}
+      >
         <h2 className="text-white text-4xl text-center">ZONA VIP</h2>
-        <div className="mx-auto mb-4 w-2xs h-1 flag-gradient-bg" />
+        <FlagBar />
         <div className="mx-auto mt-8 max-w-3xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -23,14 +36,13 @@ export function VIPSection() {
             Accede a beneficios exclusivos como slots reservados, insignias en
             Discord y acceso a eventos privados.
           </p>
-          <Button className="mt-8" variant="yellow" onClick={() => setOpenVIP(true)}>
-            Conviértete en VIP
-          </Button>
+          <VipModal>
+            <Button className="mt-8 px-6 py-3" variant="yellow">
+              Conviértete en VIP
+            </Button>
+          </VipModal>
         </div>
-      </div>
-
-      {/* Modal */}
-      <VipModal isOpen={openVIP} onClose={() => setOpenVIP(false)} />
+      </motion.div>
     </section>
   );
 }

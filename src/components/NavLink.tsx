@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { forwardRef } from "react";
 import {
   NavLink as RouterNavLink,
@@ -7,14 +8,20 @@ import {
 type NavLinkProps = React.PropsWithChildren<RouterNavLinkProps>;
 
 export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
-  ({ to, children, ...rest }, ref) => {
+  ({ to, children, className, ...rest }, ref) => {
     return (
       <RouterNavLink
         to={to}
         ref={ref}
         {...rest}
         className={({ isActive }) =>
-          isActive ? "text-white" : "text-gray-300 hover:text-white transition"
+          clsx(
+            isActive && "text-white",
+            "text-gray-300",
+            "hover:text-white",
+            "transition",
+            className
+          )
         }
       >
         {children}

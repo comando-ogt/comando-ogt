@@ -14,7 +14,7 @@ interface LinkProps extends Partial<RouterLinkProps> {
 }
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  function Link(
+  (
     {
       children,
       to = "",
@@ -24,8 +24,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       className = "",
       ...rest
     },
-    ref
-  ) {
+    forwardedRef
+  ) => {
     const baseClassName = [
       "text-gray-300",
       "hover:text-white",
@@ -43,14 +43,24 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     if (to === "") {
       return (
-        <a href={href} className={combinedClassName} ref={ref} {...rest}>
+        <a
+          ref={forwardedRef}
+          href={href}
+          className={combinedClassName}
+          {...rest}
+        >
           {children}
         </a>
       );
     }
 
     return (
-      <RouterLink to={to} className={combinedClassName} ref={ref} {...rest}>
+      <RouterLink
+        ref={forwardedRef}
+        to={to}
+        className={combinedClassName}
+        {...rest}
+      >
         {children}
       </RouterLink>
     );

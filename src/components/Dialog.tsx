@@ -9,18 +9,15 @@ interface DialogProps extends DialogPrimitive.DialogContentProps {
 }
 
 export const DialogContent = forwardRef<HTMLDivElement, DialogProps>(
-  ({ children, title, description, ...props }, forwardedRef) => (
+  ({ children, title, description, className, ...props }, forwardedRef) => (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Overlay className="fixed inset-0 bg-black/80" />
+      <DialogPrimitive.Overlay className="fixed inset-0 bg-black/90" />
       <DialogPrimitive.Content
-        {...props}
         ref={forwardedRef}
         className={clsx(
-          "bg-gray-900",
+          "bg-neutral-900",
           "shadow-2xl",
           "p-6",
-          "border",
-          "border-green-400",
           "rounded-3xl",
           "w-96",
           "hover:scale-105",
@@ -31,10 +28,12 @@ export const DialogContent = forwardRef<HTMLDivElement, DialogProps>(
           "-translate-x-1/2",
           "-translate-y-1/2",
           "transition-transform",
-          "duration-300"
+          "duration-300",
+          className
         )}
+        {...props}
       >
-        <DialogPrimitive.Title className="drop-shadow-lg mb-4 font-bold text-green-400 text-2xl text-center">
+        <DialogPrimitive.Title className="drop-shadow-lg mb-4 font-bold text-2xl text-center">
           {title}
         </DialogPrimitive.Title>
         <VisuallyHidden.Root asChild>

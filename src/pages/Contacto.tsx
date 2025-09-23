@@ -1,49 +1,47 @@
-import { MainSection } from "../components/MainSection";
+import { Button } from "../components/Button";
+import { FlagBar } from "../components/FlagBar";
+import { TextInput } from "../components/TextInput";
 
 export function Contacto() {
   return (
-    <main className="relative flex flex-col flex-1">
-      <MainSection className="flex flex-1 justify-center items-center">
-        <h1 className="drop-shadow-lg mb-10 font-bold text-green-400 text-5xl text-center">
-          Contacto
-        </h1>
+    <main className="flex flex-1 justify-center items-center">
+      <div className="mx-auto p-6">
+        <div className="bg-neutral-800 shadow-lg p-8 md:p-12 rounded-lg">
+          <h1 className="text-white text-5xl text-center">Contacto</h1>
+          <FlagBar className="my-4 w-full md:w-2xs" />
 
-        <div className="mx-auto max-w-2xl">
           <form
             action="https://formspree.io/f/mzzalkja"
             method="POST"
-            className="space-y-6 bg-gray-800 shadow-2xl p-8 border border-green-400 rounded-3xl"
+            className="space-y-3 max-w-2xl"
           >
-            <input
+            <TextInput
               type="text"
               name="nombre"
               placeholder="Tu nombre"
               required
-              className="bg-black p-3 border border-green-400 rounded w-full text-white"
+              className="bg-neutral-900"
             />
-            <input
+            <TextInput
               type="email"
               name="email"
               placeholder="Tu correo"
               required
-              className="bg-black p-3 border border-green-400 rounded w-full text-white"
+              className="bg-neutral-900"
             />
             <textarea
               name="mensaje"
               placeholder="Escribe tu mensaje..."
               rows={5}
               required
-              className="bg-black p-3 border border-green-400 rounded w-full text-white"
-            ></textarea>
-            <button
-              type="submit"
-              className="bg-green-500 hover:bg-green-600 shadow-xl px-6 py-3 rounded-2xl w-full font-bold text-black"
-            >
+              className="bg-neutral-900 p-2 border border-neutral-700 rounded focus:outline-0 w-full"
+            />
+            <Button type="submit" variant="green" className="w-full">
               Enviar
-            </button>
+            </Button>
           </form>
         </div>
-      </MainSection>
+      </div>
     </main>
   );
 }

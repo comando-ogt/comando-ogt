@@ -1,7 +1,15 @@
+import { AnimatePresence, motion } from "motion/react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "./NavLink";
+import { NavLinks } from "./NavLinks";
 import clsx from "clsx";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 export function Nav() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <header
       className={clsx(
@@ -13,16 +21,41 @@ export function Nav() {
         "backdrop-blur-sm"
       )}
     >
-      <div className="flex justify-between items-center mx-auto px-6 py-4 max-w-7xl">
-        <h1 className="drop-shadow-lg font-bold text-white text-2xl">
-          Comando OGT
-        </h1>
-        <nav className="flex space-x-6 font-semibold text-lg">
-          <NavLink to="/">Inicio</NavLink>
-          <NavLink to="/competitivo">Competitivo</NavLink>
-          <NavLink to="/contacto">Contacto</NavLink>
-        </nav>
-      </div>
+      <nav className="flex justify-between items-center mx-auto px-6 py-4 container">
+        <div className="flex gap-2">
+          <img src="favicon-32x32.png" alt="logo" />
+
+          <NavLink className="font-bold text-white text-2xl" to="/">
+            Comando OGT
+          </NavLink>
+        </div>
+
+        <div className="hidden md:flex space-x-8 text-lg">
+          <NavLinks />
+        </div>
+
+        <button
+          className="md:hidden"
+          onClick={() => setIsMenuOpen((state) => !state)}
+        >
+          <FontAwesomeIcon icon={faBars} />
+        </button>
+      </nav>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="md:hidden space-y-2 px-6 pt-2 pb-4 overflow-hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            layout
+          >
+            <NavLinks className="block" />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

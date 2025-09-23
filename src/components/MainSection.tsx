@@ -4,23 +4,32 @@ import clsx from "clsx";
 interface Props {
   children: ReactNode;
   className?: string;
+  contentClassName?: string;
 }
 
-export function MainSection({ children, className }: Props) {
+export function MainSection({ children, className, contentClassName }: Props) {
   return (
     <section
       className={clsx(
         "relative",
         "h-full",
-        /* "bg-gradient-to-br",
-        "from-black",
-        "via-gray-900",
-        "to-gray-800", */
+        "grid",
+        "grid-cols-1",
+        "grid-rows-1",
         className
       )}
     >
       <video
-        className="absolute opacity-20 w-full h-full object-cover pointer-events-none"
+        className={clsx(
+          "absolute",
+          "grid-col-1",
+          "grid-row-1",
+          "opacity-20",
+          "w-full",
+          "h-full",
+          "object-cover",
+          "pointer-events-none"
+        )}
         autoPlay
         loop
         muted
@@ -29,7 +38,16 @@ export function MainSection({ children, className }: Props) {
       >
         <source src="hll.mp4" />
       </video>
-      <div className="relative">{children}</div>
+      <div
+        className={clsx(
+          "relative",
+          "grid-col-1",
+          "grid-row-1",
+          contentClassName
+        )}
+      >
+        {children}
+      </div>
     </section>
   );
 }

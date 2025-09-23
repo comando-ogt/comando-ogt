@@ -6,26 +6,29 @@ import {
 } from "../../components/Dialog";
 
 import { Button } from "../../components/Button";
+import { FlagBar } from "../../components/FlagBar";
 import { Link } from "../../components/Link";
 import { MainSection } from "../../components/MainSection";
+import { TextInput } from "../../components/TextInput";
 
 export function IntroSection() {
   return (
-    <MainSection className="h-screen">
-      <div className="flex flex-col justify-center items-center h-screen">
+    <MainSection>
+      <div className="flex flex-col justify-center items-center mx-auto px-6 h-[calc(100vh-64px)] text-center container">
         <h1 className="drop-shadow-lg mb-4 font-bold text-white text-6xl md:text-7xl tracking-widest">
           COMANDO OGT
         </h1>
-        <div className="mb-4 w-xl h-1 flag-gradient-bg"></div>
+        <FlagBar className="w-full md:w-xl" />
         <p className="mb-8 text-gray-300 text-lg md:text-2xl">
           Hell Let Loose LATAM | Equipo Competitivo & Comunidad
         </p>
-        <div className="flex gap-4">
+        <div className="flex md:flex-row flex-col gap-4">
           {/* Botón de Discord */}
           <Link
             href="https://discord.com/invite/WmB3kPB35j"
             target="_blank"
             asButton
+            className="px-6 py-3"
           >
             Únete a nuestro Discord
           </Link>
@@ -33,7 +36,9 @@ export function IntroSection() {
           {/* Botón Inscribirme con modal */}
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="red">Inscribirme</Button>
+              <Button variant="red" className="px-6 py-3">
+                Inscribirme
+              </Button>
             </DialogTrigger>
 
             <DialogContent
@@ -45,27 +50,25 @@ export function IntroSection() {
                 action="https://formspree.io/f/mzzalkja" // <- reemplaza con tu endpoint
                 method="POST"
               >
-                <input
+                <TextInput
                   type="text"
                   name="playerName"
                   placeholder="Nick de Discord"
-                  className="bg-black p-2 border border-green-400 rounded text-white"
                   required
                 />
                 <select
                   name="role"
-                  className="bg-black p-2 border border-green-400 rounded text-white"
+                  className="bg-neutral-800 p-2 border border-neutral-700 rounded text-white"
                   required
                 >
                   <option value="Infantería">Infantería</option>
                   <option value="Competitivo">Competitivo</option>
                   <option value="VIP">VIP</option>
                 </select>
-                <input
+                <TextInput
                   type="email"
                   name="email"
                   placeholder="Correo"
-                  className="bg-black p-2 border border-green-400 rounded text-white"
                   required
                 />
 
@@ -86,4 +89,3 @@ export function IntroSection() {
     </MainSection>
   );
 }
-
