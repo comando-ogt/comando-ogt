@@ -1,9 +1,10 @@
 import AdminPage from "./pages/Home/AdminPage"; // ✅ Ajustado
 import App from "./App";
-import { Contacto } from "./pages/Contacto";
+import { Contact } from "./pages/Contact";
 import { Eventos } from "./pages/Eventos";
 import { Home } from "./pages/Home";
-import { Miembros } from "./pages/Miembros";
+import { Member } from "./pages/Member";
+import { Members } from "./pages/Members";
 import { NotFound } from "./pages/NotFound";
 import { createBrowserRouter } from "react-router";
 
@@ -14,8 +15,9 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "eventos", Component: Eventos },
-      { path: "miembros", Component: Miembros },
-      { path: "contacto", Component: Contacto },
+      { path: "miembros", Component: Members },
+      { path: "miembro/:memberId", Component: Member },
+      { path: "contacto", Component: Contact },
       { path: "admin", Component: AdminPage },
       { path: "*", Component: NotFound },
     ],

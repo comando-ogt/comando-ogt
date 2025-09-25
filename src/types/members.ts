@@ -10,6 +10,12 @@ export type MemberDivision =
   | "flex"
   | "none";
 
+export interface Medal {
+  name: string;
+  description: string;
+  icon: string;
+}
+
 export interface Member {
   id: string;
   avatar: string;
@@ -23,4 +29,5 @@ export interface Member {
     k: number;
     d: number;
   };
+  medals: Medal[];
 }

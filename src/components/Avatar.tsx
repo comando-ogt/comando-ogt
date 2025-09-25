@@ -1,7 +1,7 @@
 import { Avatar as PrimitiveAvatar } from "radix-ui";
 import clsx from "clsx";
 
-type AvatarSize = "sm" | "md" | "lg" | "xl";
+type AvatarSize = "sm" | "md" | "lg" | "xl" | "2xl";
 
 interface Props {
   src: string;
@@ -15,6 +15,7 @@ const sizeClasses: Record<AvatarSize, string> = {
   md: "w-16 h-16",
   lg: "w-24 h-24",
   xl: "w-32 h-32",
+  "2xl": "w-48 h-48",
 } as const;
 
 export function Avatar({ src, name, size = "sm", className }: Props) {

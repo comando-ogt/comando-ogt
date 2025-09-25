@@ -40,6 +40,13 @@ export const membersData: Member[] = Array(memberCount)
       k: 0,
       d: 0,
     },
+    medals: Array(Math.floor(Math.random() * 5))
+      .fill(null)
+      .map(() => ({
+        icon: `medal${Math.floor(Math.random() * 9) + 1}.png`,
+        name: "lorem",
+        description: "lorem isum dolr sit amet",
+      })),
   }));
 /*[
   {

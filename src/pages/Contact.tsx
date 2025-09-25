@@ -2,7 +2,7 @@ import { Button } from "../components/Button";
 import { FlagBar } from "../components/FlagBar";
 import { TextInput } from "../components/TextInput";
 
-export function Contacto() {
+export function Contact() {
   return (
     <main className="flex flex-1 justify-center items-center">
       <div className="mx-auto p-6">

@@ -4,7 +4,7 @@ import { membersData } from "../../utils/testData";
 
 const members = membersData;
 
-export function Miembros() {
+export function Members() {
   return (
     <main className="flex-1">
       <div className="mx-auto p-6 container">
