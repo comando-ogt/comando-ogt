@@ -1,7 +1,7 @@
 import { Avatar as PrimitiveAvatar } from "radix-ui";
 import clsx from "clsx";
 
-type AvatarSize = "sm" | "md" | "lg" | "xl" | "2xl";
+type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
 interface Props {
   src: string;
@@ -11,6 +11,7 @@ interface Props {
 }
 
 const sizeClasses: Record<AvatarSize, string> = {
+  xs: "w-8 h-8",
   sm: "w-12 h-12",
   md: "w-16 h-16",
   lg: "w-24 h-24",
@@ -24,7 +25,6 @@ export function Avatar({ src, name, size = "sm", className }: Props) {
       className={clsx(
         sizeClasses[size],
         "rounded-full",
-        "bg-white",
         "overflow-hidden",
         "inline-flex",
         "items-center",
@@ -34,14 +34,14 @@ export function Avatar({ src, name, size = "sm", className }: Props) {
     >
       <PrimitiveAvatar.Image
         className="border-inherit w-full h-full object-cover"
-        src={src}
+        src={src === "" ? "/logo.png" : src}
         alt={`${name}'s Avatar`}
       />
       <PrimitiveAvatar.Fallback className="flex justify-center items-center border-inherit w-full h-full text-black">
         {name
           .trim()
           .split(/\s+/)
-          .map((word) => word[0].toUpperCase())
+          .map((word) => (word !== "" ? word[0].toUpperCase() : ""))
           .join("")
           .slice(0, 2)}
       </PrimitiveAvatar.Fallback>

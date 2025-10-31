@@ -1,10 +1,13 @@
-export interface GameEvent {
+export interface DBOGTEvent {
   id: number;
-  date: string;
+  created_at: string; // timestamp with time zone
   title: string;
   opponent: string;
+  opponent_logo: string | null;
   type: string;
+  team_score: number;
+  opponent_score: number;
   map: string;
-  result: "Win" | "Loss" | "None";
-  score: number;
+  schedule_at: string; // timestamp with time zone
+  notes: string;
 }

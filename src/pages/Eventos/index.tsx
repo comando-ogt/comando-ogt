@@ -1,23 +1,34 @@
 import { useEffect, useState } from "react";
 
+import type { DBOGTEvent } from "../../types/events";
 import { FlagBar } from "../../components/FlagBar";
-import { GameEvent } from "./GameEvent";
-import type { GameEvent as GameEventType } from "../../types/events";
-import { pastEventsData } from "../../utils/testData";
-
-const events = pastEventsData;
+import { OGTEvent } from "../../components/OGTEvent";
+import { RegularPageLayout } from "../../layouts/RegularPage";
+import { supabase } from "../../supabase";
 
 export function Eventos() {
-  const [pastEvents, setPastEvents] = useState<GameEventType[]>([]);
-  const [futureEvents, setFutureEvents] = useState<GameEventType[]>([]);
+  const [pastEvents, setPastEvents] = useState<DBOGTEvent[]>([]);
+  const [futureEvents, setFutureEvents] = useState<DBOGTEvent[]>([]);
 
   useEffect(() => {
-    const now = new Date();
-    const past: GameEventType[] = [];
-    const future: GameEventType[] = [];
+    getEvents();
+  }, []);
 
-    for (const event of events) {
-      if (new Date(event.date) < now) {
+  async function getEvents() {
+    const { data, error } = await supabase.from("events").select("*");
+
+    if (error) {
+      console.error(error);
+
+      return;
+    }
+
+    const now = new Date();
+    const past: DBOGTEvent[] = [];
+    const future: DBOGTEvent[] = [];
+
+    for (const event of data) {
+      if (new Date(event.schedule_at) < now) {
         past.push(event);
       } else {
         future.push(event);
@@ -26,32 +37,28 @@ export function Eventos() {
 
     setPastEvents(past);
     setFutureEvents(future);
-  }, [events]);
+  }
 
   return (
-    <main className="flex-1">
-      <div className="mx-auto p-6 container">
-        <div className="bg-neutral-800 shadow-lg p-8 md:p-12 rounded-lg">
-          <h1 className="text-white text-5xl text-center">Eventos</h1>
-          <FlagBar className="my-4 w-full md:w-2xs" />
-          <div className="mt-12">
-            <h2 className="mb-6 text-white text-4xl">Eventos Próximos</h2>
-            <div className="space-y-4">
-              {futureEvents.map((event) => (
-                <GameEvent key={event.id} event={event} />
-              ))}
-            </div>
-          </div>
-          <div className="mt-12">
-            <h2 className="mb-6 text-white text-4xl">Eventos Pasados</h2>
-            <div className="space-y-4">
-              {pastEvents.map((event) => (
-                <GameEvent key={event.id} event={event} />
-              ))}
-            </div>
-          </div>
+    <RegularPageLayout>
+      <h1 className="text-white text-5xl text-center">Eventos</h1>
+      <FlagBar className="my-4 w-full md:w-2xs" />
+      <div className="mt-12">
+        <h2 className="mb-6 text-white text-4xl">Eventos Próximos</h2>
+        <div className="space-y-4">
+          {futureEvents.map((event) => (
+            <OGTEvent key={event.id} event={event} />
+          ))}
         </div>
       </div>
-    </main>
+      <div className="mt-12">
+        <h2 className="mb-6 text-white text-4xl">Eventos Pasados</h2>
+        <div className="space-y-4">
+          {pastEvents.map((event) => (
+            <OGTEvent key={event.id} event={event} />
+          ))}
+        </div>
+      </div>
+    </RegularPageLayout>
   );
 }

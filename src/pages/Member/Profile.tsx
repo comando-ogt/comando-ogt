@@ -1,17 +1,20 @@
-import { getDivisionColor, getRoleColor } from "../../utils/colors";
+import {
+  getDivisionColor,
+  getRankColor,
+  getRankToRango,
+} from "../../utils/colors";
 
 import { Avatar } from "../../components/Avatar";
 import { FlagBar } from "../../components/FlagBar";
 import type { Member } from "../../types/members";
 import clsx from "clsx";
+import { getKDR } from "../../utils/profile";
 
 interface Props {
   member: Member;
 }
 
 export function Profile({ member }: Props) {
-  console.log(member.medals);
-
   return (
     <>
       <div className="flex md:flex-row flex-col items-center gap-8">
@@ -31,11 +34,11 @@ export function Profile({ member }: Props) {
         <div className="md:text-left text-center">
           <h1 className="text-white text-5xl">{member.name}</h1>
           <p
-            className={`text-2xl font-semibold text-${getRoleColor(
-              member.role
+            className={`text-2xl font-semibold text-${getRankColor(
+              member.rank
             )}`}
           >
-            {member.role}
+            {getRankToRango(member.rank)}
           </p>
           <p className="mt-2 text-gray-400 text-lg italic">"{member.quote}"</p>
         </div>
@@ -51,16 +54,18 @@ export function Profile({ member }: Props) {
         <div>
           <h3 className="mb-4 text-white text-3xl">Estadísticas</h3>
           <ul className="space-y-3 text-gray-300">
-            {member.stats &&
-              Object.entries(member.stats).map(([stat, value], index) => (
-                <li
-                  key={index}
-                  className="flex justify-between bg-neutral-900 p-2 rounded"
-                >
-                  <span className="font-bold">{stat.toUpperCase()}:</span>
-                  <span>{value}</span>
-                </li>
-              ))}
+            <li className="flex justify-between bg-neutral-900 p-2 rounded">
+              <span className="font-bold">Asesinatos:</span>
+              <span>{member.kills}</span>
+            </li>
+            <li className="flex justify-between bg-neutral-900 p-2 rounded">
+              <span className="font-bold">Muertes:</span>
+              <span>{member.deaths}</span>
+            </li>
+            <li className="flex justify-between bg-neutral-900 p-2 rounded">
+              <span className="font-bold">KDR:</span>
+              <span>{getKDR(member.kills, member.deaths)}</span>
+            </li>
           </ul>
         </div>
       </div>

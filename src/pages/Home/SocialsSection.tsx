@@ -1,13 +1,6 @@
-import {
-  faDiscord,
-  faInstagram,
-  faTwitch,
-  faXTwitter,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "../../components/Link";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 
 export function SocialsSection() {
   return (
@@ -18,7 +11,7 @@ export function SocialsSection() {
         <Link href="https://discord.com/invite/WmB3kPB35j">
           <FontAwesomeIcon icon={faDiscord} />
         </Link>
-        <Link href="#">
+        {/* <Link href="#">
           <FontAwesomeIcon icon={faYoutube} />
         </Link>
         <Link href="#">
@@ -29,7 +22,7 @@ export function SocialsSection() {
         </Link>
         <Link href="#">
           <FontAwesomeIcon icon={faXTwitter} />
-        </Link>
+        </Link> */}
       </div>
     </section>
   );

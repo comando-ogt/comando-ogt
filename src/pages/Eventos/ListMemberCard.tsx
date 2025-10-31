@@ -1,4 +1,4 @@
-import { getDivisionColor, getRoleColor } from "../../utils/colors";
+import { getDivisionColor, getRankColor } from "../../utils/colors";
 
 import { Avatar } from "../../components/Avatar";
 import type { Member } from "../../types/members";
@@ -42,7 +42,7 @@ export function ListMemberCard({ member }: Props) {
       />
       <div>
         <p className="font-bold text-white">{member.name}</p>
-        <p className={`text-${getRoleColor(member.role)} text-sm`}>
+        <p className={`text-${getRankColor(member.role)} text-sm`}>
           {member.role}
         </p>
       </div>

@@ -1,26 +1,68 @@
+import type { Member, MemberDivision, MemberRank } from "../../types/members";
+import { useEffect, useState } from "react";
+
+import type { DBProfile } from "../../utils/profile";
 import { FlagBar } from "../../components/FlagBar";
 import { HomeMemberCard } from "./HomeMemberCard";
 import { Link } from "../../components/Link";
-import { membersData } from "../../utils/testData";
 import { motion } from "motion/react";
-
-const members = membersData;
+import { supabase } from "../../supabase";
+import { useNavigate } from "react-router";
 
 export function MembersSection() {
+  const [members, setMembers] = useState<Member[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  // TODO: add loading ui
+  useEffect(() => {
+    getMembers();
+  }, []);
+
+  async function getMembers() {
+    const { data, error } = await supabase.rpc("random_profiles", { count: 8 });
+
+    // TODO: reroute to a page showing that the members were not found
+    if (error) {
+      console.log(error);
+
+      navigate("/404");
+
+      return;
+    }
+
+    const membersFromData: Member[] = [];
+
+    (data as DBProfile[]).forEach((member) => {
+      membersFromData.push({
+        avatar: member.avatar_url ?? "",
+        name: member.discord_username.replace(/^OGT(\s*(\||丨)?)?/i, ""),
+        rank: member.rank as MemberRank,
+        quote: member.quote ?? "",
+        bio: member.bio ?? "",
+        division: member.division as MemberDivision,
+        kills: member.total_kills,
+        deaths: member.total_deaths,
+        url: member.member_url,
+        medals: [],
+      });
+    });
+
+    setMembers(membersFromData);
+
+    setLoading(false);
+  }
+
   return (
     <section id="members" className="py-20">
       <div className="mx-auto px-6 container">
         <h2 className="text-white text-4xl text-center">Comando Central</h2>
         <FlagBar />
         <div className="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-12">
-          {members
-            .filter(
-              (member) =>
-                member.role === "officer" || member.role === "commander"
-            )
-            .map((member) => (
-              <HomeMemberCard key={member.name} member={member} />
-            ))}
+          {members.map((member) => (
+            <HomeMemberCard key={member.url} member={member} />
+          ))}
         </div>
       </div>
       <motion.div
@@ -36,7 +78,7 @@ export function MembersSection() {
           },
         }}
       >
-        <Link className="mx-auto mt-12 py-3 py-4" to="/miembros" asButton>
+        <Link className="mx-auto mt-12 py-4" to="/miembros" asButton>
           Ver el resto del equipo
         </Link>
       </motion.div>

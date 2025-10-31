@@ -1,15 +1,6 @@
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "../../components/Dialog";
-
-import { Button } from "../../components/Button";
 import { FlagBar } from "../../components/FlagBar";
 import { Link } from "../../components/Link";
 import { MainSection } from "../../components/MainSection";
-import { TextInput } from "../../components/TextInput";
 
 export function IntroSection() {
   return (
@@ -32,58 +23,6 @@ export function IntroSection() {
           >
             Únete a nuestro Discord
           </Link>
-
-          {/* Botón Inscribirme con modal */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="red" className="px-6 py-3">
-                Inscribirme
-              </Button>
-            </DialogTrigger>
-
-            <DialogContent
-              title="Formulario de Inscripción"
-              description="Agrega tu información aquí para unirse a nuestro equipo"
-            >
-              <form
-                className="flex flex-col gap-4"
-                action="https://formspree.io/f/mzzalkja" // <- reemplaza con tu endpoint
-                method="POST"
-              >
-                <TextInput
-                  type="text"
-                  name="playerName"
-                  placeholder="Nick de Discord"
-                  required
-                />
-                <select
-                  name="role"
-                  className="bg-neutral-800 p-2 border border-neutral-700 rounded text-white"
-                  required
-                >
-                  <option value="Infantería">Infantería</option>
-                  <option value="Competitivo">Competitivo</option>
-                  <option value="VIP">VIP</option>
-                </select>
-                <TextInput
-                  type="email"
-                  name="email"
-                  placeholder="Correo"
-                  required
-                />
-
-                <Button type="submit" className="rounded-lg">
-                  Enviar
-                </Button>
-
-                <DialogClose asChild>
-                  <Button className="rounded-lg" variant="outlineRed">
-                    Cancelar
-                  </Button>
-                </DialogClose>
-              </form>
-            </DialogContent>
-          </Dialog>
         </div>
       </div>
     </MainSection>

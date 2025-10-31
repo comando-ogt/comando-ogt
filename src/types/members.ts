@@ -1,4 +1,15 @@
-export type MemberRole = "commander" | "officer" | "infantry" | "none";
+export type MemberRank =
+  | "merc"
+  | "recruit"
+  | "private"
+  | "corporal"
+  | "sergeant"
+  | "cadet"
+  | "lieutenant"
+  | "captain"
+  | "major"
+  | "colonel"
+  | "general";
 export type MemberDivision =
   | "commander"
   | "defense"
@@ -17,17 +28,14 @@ export interface Medal {
 }
 
 export interface Member {
-  id: string;
   avatar: string;
   name: string;
-  role: MemberRole;
+  rank: MemberRank;
   quote: string;
   bio: string;
   division: MemberDivision;
-  stats: {
-    preferredRole: string;
-    k: number;
-    d: number;
-  };
+  kills: number;
+  deaths: number;
+  url: string;
   medals: Medal[];
 }

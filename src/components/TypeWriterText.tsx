@@ -10,6 +10,10 @@ export function TypewriterText({ text, onAnimateComplete }: Props) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    setIndex(0);
+  }, [text]);
+
+  useEffect(() => {
     if (index < text.length) {
       const timeout = setTimeout(() => {
         setDisplayedText((prev) => prev + text[index]);

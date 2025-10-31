@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "./NavLink";
 import { NavLinks } from "./NavLinks";
+import { NavUser } from "./NavUser";
 import clsx from "clsx";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -32,6 +33,8 @@ export function Nav() {
 
         <div className="hidden md:flex space-x-8 text-lg">
           <NavLinks />
+
+          <NavUser />
         </div>
 
         <button

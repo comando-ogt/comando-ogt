@@ -1,8 +1,13 @@
-import { getDivisionColor, getRoleColor } from "../../utils/colors";
+import {
+  getDivisionColor,
+  getRankColor,
+  getRankToRango,
+} from "../../utils/colors";
 
 import { Avatar } from "../../components/Avatar";
 import type { Member } from "../../types/members";
 import clsx from "clsx";
+import { getKDR } from "../../utils/profile";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 
@@ -13,7 +18,7 @@ interface Props {
 export function ListMemberCard({ member }: Props) {
   let navigate = useNavigate();
 
-  const kd = Math.random();
+  const kd = parseFloat(getKDR(member.kills, member.deaths));
 
   return (
     <motion.div
@@ -34,20 +39,20 @@ export function ListMemberCard({ member }: Props) {
         "cursor-pointer",
         "transition"
       )}
-      onClick={() => navigate(`/miembro/${member.id}`)}
+      onClick={() => navigate(`/miembro/${member.url}`)}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.6 }}
       variants={{
         hidden: { opacity: 0, y: 20 },
-        visible: (i: number) => ({
+        visible: {
           opacity: 1,
           y: 0,
           transition: {
             delay: 0.2,
             duration: 0.25,
           },
-        }),
+        },
       }}
     >
       <div className="flex items-center gap-2">
@@ -61,8 +66,8 @@ export function ListMemberCard({ member }: Props) {
         />
         <div>
           <p className="font-bold text-white">{member.name}</p>
-          <p className={`text-${getRoleColor(member.role)} text-sm`}>
-            {member.role}
+          <p className={`text-${getRankColor(member.rank)} text-sm`}>
+            {getRankToRango(member.rank)}
           </p>
         </div>
       </div>
@@ -70,11 +75,11 @@ export function ListMemberCard({ member }: Props) {
         <p
           className={clsx(
             "font-bold",
-            "text-lg"
-            /* kd < 0.5 ? "text-ogt-red" : "text-ogt-green" */
+            "text-lg",
+            kd < 0.5 ? "text-ogt-red" : "text-ogt-green"
           )}
         >
-          {kd.toFixed(1)}
+          {kd.toFixed(2)}
         </p>
         <p className="text-gray-300 text-xs text-center">KD</p>
       </div>

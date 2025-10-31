@@ -1,12 +1,19 @@
+import type { DBOGTEvent } from "../types/events";
 import clsx from "clsx";
+import { es } from "date-fns/locale";
+import { formatDistanceToNow } from "date-fns";
 import { motion } from "motion/react";
-import type { GameEvent } from "../../types/events";
 
 interface Props {
-  event: GameEvent;
+  event: DBOGTEvent;
+  className?: string;
+  full?: boolean;
 }
 
-export function GameEvent({ event }: Props) {
+export function OGTEvent({ event, className, full }: Props) {
+  const isVictory = event.team_score > event.opponent_score;
+  const isUndeterminedOrDraw = event.team_score === event.opponent_score;
+
   return (
     <motion.div
       className={clsx(
@@ -14,25 +21,26 @@ export function GameEvent({ event }: Props) {
         "p-4",
         "rounded-lg",
         "border-l-4",
-        event.result === "Win"
+        isVictory
           ? "border-ogt-green"
-          : event.result === "None"
+          : isUndeterminedOrDraw
           ? "border-yellow-500"
-          : "border-ogt-red"
+          : "border-ogt-red",
+        className
       )}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.6 }}
       variants={{
         hidden: { opacity: 0, y: 20 },
-        visible: (i: number) => ({
+        visible: {
           opacity: 1,
           y: 0,
           transition: {
             delay: 0.2,
             duration: 0.25,
           },
-        }),
+        },
       }}
     >
       <div className="flex flex-row justify-between">
@@ -40,7 +48,7 @@ export function GameEvent({ event }: Props) {
           <p className="font-bold text-white text-lg">{event.title}</p>
           <p className="text-gray-300">vs. {event.opponent}</p>
         </div>
-        {event.result !== "None" && (
+        {!isUndeterminedOrDraw && (
           <span
             className={clsx(
               "mt-2",
@@ -52,19 +60,36 @@ export function GameEvent({ event }: Props) {
               "rounded-full",
               "self-start",
               "sm:self-center",
-              event.result === "Win" ? "text-ogt-green" : "text-ogt-red"
+              isVictory ? "text-ogt-green" : "text-ogt-red"
             )}
           >
-            {event.result} {event.score}-{5 - event.score}
+            {event.team_score}-{event.opponent_score}
           </span>
         )}
       </div>
       <div className="flex flex-wrap space-x-4 mt-2 text-gray-400 text-sm">
-        <span>{event.date}</span>
+        <span>
+          {formatDistanceToNow(event.schedule_at, {
+            locale: es,
+            addSuffix: true,
+          })}
+        </span>
         <span>|</span>
         <span>{event.type}</span>
         <span>|</span>
         <span>Map: {event.map}</span>
+        {full && (
+          <>
+            <span>|</span>
+            <span>
+              Creado:{" "}
+              {formatDistanceToNow(event.created_at, {
+                locale: es,
+                addSuffix: true,
+              })}
+            </span>
+          </>
+        )}
       </div>
     </motion.div>
   );

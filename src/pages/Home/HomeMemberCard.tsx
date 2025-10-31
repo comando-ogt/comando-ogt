@@ -1,4 +1,8 @@
-import { getDivisionColor, getRoleColor } from "../../utils/colors";
+import {
+  getDivisionColor,
+  getRankColor,
+  getRankToRango,
+} from "../../utils/colors";
 
 import { Avatar } from "../../components/Avatar";
 import type { Member } from "../../types/members";
@@ -37,7 +41,7 @@ export function HomeMemberCard({ member }: Props) {
         "cursor-pointer",
         "transform"
       )}
-      onClick={() => navigate(`/miembro/${member.id}`)}
+      onClick={() => navigate(`/miembro/${member.url}`)}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.6 }}
@@ -55,8 +59,8 @@ export function HomeMemberCard({ member }: Props) {
         )}
       />
       <h3 className="text-white text-2xl">{member.name}</h3>
-      <p className={`font-semibold text-${getRoleColor(member.role)}`}>
-        {member.role}
+      <p className={`font-semibold text-${getRankColor(member.rank)}`}>
+        {getRankToRango(member.rank)}
       </p>
       <p className="mt-2 text-gray-400">"{member.quote}"</p>
     </motion.div>

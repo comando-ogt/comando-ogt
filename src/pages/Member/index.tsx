@@ -1,37 +1,62 @@
 import { useEffect, useState } from "react";
 
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { RegularPageLayout } from "../../layouts/RegularPage";
+import { supabase } from "../../supabase";
 import type { Member } from "../../types/members";
-import { membersData } from "../../utils/testData";
+import { profileColumns } from "../../utils/profile";
 import { Loading } from "./Loading";
 import { Profile } from "./Profile";
 
-const members = membersData;
-
 export function Member() {
-  const { memberId } = useParams();
+  const { memberUrl } = useParams();
   const [member, setMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (memberId) {
-        setMember(members[parseInt(memberId)]);
-      }
-      setLoading(false);
-    }, 3000);
+  const navigate = useNavigate();
 
-    return () => clearTimeout(timeout);
+  useEffect(() => {
+    getProfile();
   }, []);
 
+  async function getProfile() {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select(profileColumns)
+      .eq("member_url", memberUrl)
+      .single();
+
+    // TODO: reroute to a page showing that the member was not found
+    if (error) {
+      navigate("/404");
+
+      return;
+    }
+
+    // TODO: add rewards
+
+    const memberFromData: Member = {
+      avatar: data.avatar_url ?? "",
+      name: data.discord_username.replace(/^OGT(\s*(\||丨)?)?/i, ""),
+      rank: data.rank,
+      quote: data.quote,
+      bio: data.bio,
+      division: data.division,
+      kills: data.total_kills,
+      deaths: data.total_deaths,
+      url: data.member_url,
+      medals: [],
+    };
+
+    setMember(memberFromData);
+
+    setLoading(false);
+  }
+
   return (
-    <main className="flex-1">
-      <div className="mx-auto p-6 container">
-        <div className="bg-neutral-800 shadow-lg p-8 md:p-12 rounded-lg">
-          {loading && <Loading />}
-          {member && <Profile member={member} />}
-        </div>
-      </div>
-    </main>
+    <RegularPageLayout>
+      {loading && <Loading />}
+      {member && <Profile member={member} />}
+    </RegularPageLayout>
   );
 }

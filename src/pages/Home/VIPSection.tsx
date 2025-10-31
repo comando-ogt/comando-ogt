@@ -1,7 +1,7 @@
+import { motion } from "motion/react";
 import { Button } from "../../components/Button";
 import { FlagBar } from "../../components/FlagBar";
-import { VipModal } from "../../modals/VipModal";
-import { motion } from "motion/react";
+import { VipModal } from "../../modals/Vip";
 
 export function VIPSection() {
   return (
