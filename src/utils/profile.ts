@@ -1,5 +1,5 @@
 export const profileColumns =
-  "avatar_url,bio,discord_username,division,hll_level,hll_username,member_url,membership_status,quote,rank,total_deaths,total_kills,created_at,user_id,web_role";
+  "avatar_url,bio,discord_username,division,hll_level,hll_username,member_url,membership_status,quote,rank,total_deaths,total_kills,updated_at,user_id,web_role";
 
 export interface DBProfile {
   avatar_url: string | null;
