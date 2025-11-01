@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "./NavLink";
 import { NavLinks } from "./NavLinks";
 import { NavUser } from "./NavUser";
+import { NavUserLinks } from "./NavUserLinks";
 import clsx from "clsx";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -56,6 +57,8 @@ export function Nav() {
             layout
           >
             <NavLinks className="block" />
+
+            <NavUserLinks className="block" />
           </motion.div>
         )}
       </AnimatePresence>

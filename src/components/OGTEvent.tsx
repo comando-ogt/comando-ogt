@@ -68,7 +68,7 @@ export function OGTEvent({ event, className, full }: Props) {
         )}
       </div>
       <div className="flex flex-wrap space-x-4 mt-2 text-gray-400 text-sm">
-        <span>
+        <span title={new Date(event.schedule_at).toLocaleDateString()}>
           {formatDistanceToNow(event.schedule_at, {
             locale: es,
             addSuffix: true,
