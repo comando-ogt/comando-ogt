@@ -77,11 +77,11 @@ export function OGTEvent({ event, className, full }: Props) {
         <span>|</span>
         <span>{event.type}</span>
         <span>|</span>
-        <span>Map: {event.map}</span>
+        <span>Mapa: {event.map}</span>
         {full && (
           <>
             <span>|</span>
-            <span>
+            <span title={new Date(event.created_at).toLocaleDateString()}>
               Creado:{" "}
               {formatDistanceToNow(event.created_at, {
                 locale: es,

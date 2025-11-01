@@ -33,6 +33,7 @@ export function Register() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setStatus(null);
     setLoading(true);
 
     const { error } = await supabase.auth.signUp({

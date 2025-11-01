@@ -2,7 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { useAuthStore } from "../store/auth";
 import { supabase } from "../supabase";
-import { profileColumns } from "../utils/profile";
+import { profileColumns, type DBProfile } from "../utils/profile";
 
 interface Props {
   children: ReactNode;
@@ -64,7 +64,7 @@ async function fetchProfile(userId: string) {
   if (error) {
     setProfile(null);
   } else {
-    setProfile(data);
+    setProfile(data as unknown as DBProfile);
   }
 
   unstable_batchedUpdates(() => {

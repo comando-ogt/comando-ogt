@@ -1,29 +1,17 @@
 import type { Session, User } from "@supabase/supabase-js";
 
+import type { DBProfile } from "../utils/profile";
 import { create } from "zustand";
-
-interface Profile {
-  discord_username: string;
-  hll_username: string;
-  membership_status: string;
-  web_role: string;
-  avatar_url: string;
-  rank: string;
-  division: string;
-  quote: string;
-  bio: string;
-  member_url: string;
-}
 
 interface AuthStore {
   session: Session | null;
   user: User | null;
-  profile: Profile | null;
+  profile: DBProfile | null;
   isLoading: boolean;
 
   setSession: (session: Session | null) => void;
   setUser: (user: User | null) => void;
-  setProfile: (profile: Profile | null) => void;
+  setProfile: (profile: DBProfile | null) => void;
   setIsLoading: (loading: boolean) => void;
   clear: () => void;
 }
